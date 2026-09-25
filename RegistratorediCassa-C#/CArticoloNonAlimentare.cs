@@ -8,16 +8,23 @@ namespace RegistratorediCassa_C_
 {
     public class CArticoloNonAlimentare : CArticolo
     {
-        public Materiale materiale { get; set; }
+        public string materiale { get; set; }
 
-        public CArticoloNonAlimentare(long codiceBarre, string descrizione, float prezzo, Materiale materiale) : base(codiceBarre, descrizione, prezzo)
+        public CArticoloNonAlimentare(long codiceBarre, string descrizione, float prezzo, string materiale) : base(codiceBarre, descrizione, prezzo)
         {
             this.materiale = materiale;
         }
 
         public override float Sconta()
         {
-            return Prezzo - ((Prezzo*10)/100);
+            if (materiale.ToLower() == "vetro" ||
+            materiale.ToLower() == "carta" ||
+            materiale.ToLower() == "plastica")
+            {
+                return Prezzo - ((Prezzo * 10) / 100);
+            }
+
+            return Prezzo;
         }
     }
 }
